@@ -199,27 +199,38 @@ async function main() {
   let userId = localStorageData.userId;
 
   if (!userId) {
-    rl.question('Please enter your user ID: ', async (inputUserId) => {
-      userId = inputUserId;
-      await setLocalStorage({ userId });
-      await startCountdownAndPoints();
-      await connectWebSocket(userId);
-      rl.close();
-    });
-  } else {
-    rl.question('Menu:\n1. Logout\n2. Start Running Node\n3. Get User ID\nChoose an option: ', async (option) => {
+    rl.question('User ID not found. Would you like to:\n1. Login to your account\n2. Enter User ID manually\nChoose an option: ', async (option) => {
       switch (option) {
         case '1':
-          await setLocalStorage({});
+          await getUserId();
+          break;
+        case '2':
+          rl.question('Please enter your user ID: ', async (inputUserId) => {
+            userId = inputUserId;
+            await setLocalStorage({ userId });
+            await startCountdownAndPoints();
+            await connectWebSocket(userId);
+            rl.close();
+          });
+          break;
+        default:
+          console.log('Invalid option. Exiting...');
+          process.exit(0);
+      }
+    });
+  } else {
+    rl.question('Menu:\n1. Logout\n2. Start Running Node\nChoose an option: ', async (option) => {
+      switch (option) {
+        case '1':
+          fs.unlink('localStorage.json', (err) => {
+            if (err) throw err;
+          });
           console.log('Logged out successfully.');
           process.exit(0);
           break;
         case '2':
           await startCountdownAndPoints();
           await connectWebSocket(userId);
-          break;
-        case '3':
-          await getUserId();
           break;
         default:
           console.log('Invalid option. Exiting...');
