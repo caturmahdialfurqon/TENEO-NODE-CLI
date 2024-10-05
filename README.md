@@ -4,7 +4,7 @@ Teneo Is an extension Node Based Project that will run Automatically when you cl
 
 ## What inside the Script
 
-- Login Options
+- Login Options (For Getting UserId)
 - Running Node
 - Logout account (Clearing LocalStorageData)
 
