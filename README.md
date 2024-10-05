@@ -1,6 +1,19 @@
 # TENEO-NODE
-Running Teneo Node BETA CLI with 7 Diff LanguageS.
+Running Teneo Node BETA CLI with 7 Diff LanguageS. <br>
 Teneo Is an extension Node Based Project that will run Automatically when you click Connect Node in the Extension.
+
+## How To SignUp (Register)
+
+- https://teneo.pro/community-node : Click Download The Ektension
+- Extract the Extension
+- Activate Developer Mode
+- Load The Extension Folder (contain manifes.json)
+- Open the Extention on browser Section Click SignUp Button
+- Create Account
+- Enter Code : Wrsrs
+- Verify Email
+- Run Nodes Extension
+- Get 10000 Bonuse SignUp,And 2500 Node Point When Using My Referal Code.
 
 ## What inside the Script
 
