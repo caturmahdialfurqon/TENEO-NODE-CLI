@@ -4,7 +4,7 @@ Teneo Is an extension Node Based Project that will run Automatically when you cl
 
 ## How To SignUp (Register)
 
-- https://teneo.pro/community-node : Click Download The Ektension
+- https://teneo.pro/community-node : Download The Extension
 - Extract the Extension
 - Activate Developer Mode
 - Load The Extension Folder (contain manifes.json)
