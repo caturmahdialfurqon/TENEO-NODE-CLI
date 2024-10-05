@@ -1,5 +1,5 @@
 # TENEO-NODE
-Running Teneo Node BETA Ilegaly with 7 Diff Language
+Running Teneo Node BETA CLI with 7 Diff LanguageS
 
 ## What inside the Script
 
