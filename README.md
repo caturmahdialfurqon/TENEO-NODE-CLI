@@ -1,5 +1,6 @@
 # TENEO-NODE
-Running Teneo Node BETA CLI with 7 Diff LanguageS
+Running Teneo Node BETA CLI with 7 Diff LanguageS.
+Teneo Is an extension Node Based Project that will run Automatically when you click Connect Node in the Extension.
 
 ## What inside the Script
 
