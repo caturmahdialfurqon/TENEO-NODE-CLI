@@ -21,7 +21,7 @@ Get paid in $TENEO Tokens for simply running a node that accesses public social 
 - Enter Code : Wrsrs
 - Verify Email
 - Run Nodes Extension to Start earning rewards!
-- Get 10000 Bonuse SignUp,And 2500 Node Point When Using My Referal Code.
+- Get 10000 Bonuse SignUp,And 2500 TENEO Point (Will Converted as $TENEO After TGE) When Using My Referal Code.
 
 ## What inside the Script
 
