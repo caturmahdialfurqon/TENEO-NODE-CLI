@@ -1,9 +1,10 @@
-# TENEO-NODE
-Running Teneo Node BETA, CLI Version with 7 Diff Languages. <br>
+# ᝰ.ᐟ TENEO-NODE
+
+Running Teneo Node BETA, CLI Version with 9 Different Languages. <br>
 Teneo Is an Browser extension Node Based. <br>
 Get paid in $TENEO Tokens for simply running a node that accesses public social media data. It’s easy, passive, and you earn from the value you contribute.
 
-## How To SignUp (Register)
+## 💡 How To SignUp (Register)
 
 - Download the Extension
    - Teneo Community Node Extension -> [ teneo-community-node-v.0.2.zip ](https://teneo.pro/community-node#:~:text=Download%20extension%20as%20zip%20file%20teneo%2Dcommunity%2Dnode%2Dv.0.2.zip)
@@ -23,13 +24,13 @@ Get paid in $TENEO Tokens for simply running a node that accesses public social 
 - Run Nodes Extension to Start earning rewards!
 - Get 10000 Bonuse SignUp,And 2500 TENEO Point (Will Converted as $TENEO After TGE) When Using My Referal Code.
 
-## What inside the Script
+## 📎 What inside the Script
 
 - Login Options (For Getting UserId)
 - Running Node
 - Logout account (Clearing LocalStorageData)
 
-## With NODE.JS
+## 📌  For NODE.JS
 - if setLocalStorage({}); Doesnt Work.
 - Try
   ```JavaScript
@@ -40,3 +41,5 @@ Get paid in $TENEO Tokens for simply running a node that accesses public social 
   - Script Has Been Updated
 <img src="/Asset/Screenshot 2024-10-05 at 20.08.20.png" width=600>
 
+## ✎ᝰ. NOTE 
+- I don't provide dependencies/requirements on each script, you have to install them yourself for the scripts to work.
