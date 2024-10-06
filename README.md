@@ -6,7 +6,7 @@ Get paid in $TENEO Tokens for simply running a node that accesses public social 
 ## How To SignUp (Register)
 
 - Download the Extension
-   - Download The Extension -> [ teneo-community-node-v.0.2.zip ](https://teneo.pro/community-node#:~:text=Download%20extension%20as%20zip%20file%20teneo%2Dcommunity%2Dnode%2Dv.0.2.zip)
+   - Teneo Community Node Extension -> [ teneo-community-node-v.0.2.zip ](https://teneo.pro/community-node#:~:text=Download%20extension%20as%20zip%20file%20teneo%2Dcommunity%2Dnode%2Dv.0.2.zip)
 - Extract the Extension
    - Right click on the downloaded zip file and choose Extract All option. Make sure to select a convenient file destination, somewhere it won't be moved from after the install.
 - Enable Developer Mode in Chrome or Other Browser Supported Extentions
