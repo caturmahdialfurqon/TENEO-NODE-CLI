@@ -2,8 +2,9 @@
 
 Running Teneo Node BETA, CLI Version with 9 Different Languages. <br>
 Teneo Is an Browser extension Node Based. <br>
-<img src="https://cdn.prod.website-files.com/665c71122bb2018f6ed3f9c9/66eaaf8660d0ba047f3f2058_screenshot-p-500.png" width="300" height="400" alt="TENEO-NODE" /> <br>
-Get paid in $TENEO Tokens for simply running a node that accesses public social media data. It’s easy, passive, and you earn from the value you contribute. 
+<img src="https://cdn.prod.website-files.com/665c71122bb2018f6ed3f9c9/66eaaf8660d0ba047f3f2058_screenshot.png" loading="lazy" width="266" height="Auto" alt="" srcset="https://cdn.prod.website-files.com/665c71122bb2018f6ed3f9c9/66eaaf8660d0ba047f3f2058_screenshot-p-500.png 500w, https://cdn.prod.website-files.com/665c71122bb2018f6ed3f9c9/66eaaf8660d0ba047f3f2058_screenshot.png 626w" sizes="(max-width: 479px) 100vw, (max-width: 991px) 33vw, 266px" class="image-32"> <br>
+Get paid in $TENEO Tokens for simply running a node that accesses public social media data. It’s easy, passive, and you earn from the value you contribute.
+
 
 
 ## 💡 How To SignUp (Register)
