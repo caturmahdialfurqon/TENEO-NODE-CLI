@@ -2,6 +2,7 @@
 
 Running Teneo Node BETA, CLI Version with 9 Different Languages. <br>
 Teneo Is an Browser extension Node Based. <br>
+
 <img src="https://cdn.prod.website-files.com/665c71122bb2018f6ed3f9c9/66eaaf8660d0ba047f3f2058_screenshot.png" loading="lazy" width="266" height="Auto" alt="" srcset="https://cdn.prod.website-files.com/665c71122bb2018f6ed3f9c9/66eaaf8660d0ba047f3f2058_screenshot-p-500.png 500w, https://cdn.prod.website-files.com/665c71122bb2018f6ed3f9c9/66eaaf8660d0ba047f3f2058_screenshot.png 626w" sizes="(max-width: 479px) 100vw, (max-width: 991px) 33vw, 266px" class="image-32"> <br>
 Get paid in $TENEO Tokens for simply running a node that accesses public social media data. It’s easy, passive, and you earn from the value you contribute.
 
@@ -27,21 +28,20 @@ Get paid in $TENEO Tokens for simply running a node that accesses public social 
 - Run Nodes Extension to Start earning rewards!
 - Get 10000 Bonuse SignUp,And 2500 TENEO Point (Will Converted as $TENEO After TGE) When Using My Referal Code.
 
-## 📎 What inside the Script
+## 🚨 Attention Before Running Teneo Cli Version
 
-- Login Options (For Getting UserId)
+I am not `responsible` for the possibility of an account being `banned`, due to running node in the CLI, because Officially `Teneo Node Beta` does not provide an option for the CLI version, only with the Chrome extension.
+but `I think` there is no reason to ban the account, because this is not cheating, I didn't change anything in the script (Heartbeats 15 minutes, maximum teneo points 25, maximum points per day 2400)
+
+## 📎 Teneo Node cli version Script features
+
+- Login
 - Running Node
-- Logout account (Clearing LocalStorageData)
+- AutoLogin
+- AutoReconnect
 
-## 📌  For NODE.JS
-- if setLocalStorage({}); Doesnt Work.
-- Try
-  ```JavaScript
-          fs.unlink('localStorage.json', (err) => {
-            if (err) throw err;
-          });
-  ```
-  - Script Has Been Updated
+## 📌  ScreenShot
+
 <img src="/Asset/Screenshot 2024-10-05 at 20.08.20.png" width=600>
 
 ## ✎ᝰ. NOTE 
