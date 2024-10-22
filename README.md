@@ -40,9 +40,9 @@ but `I think` there is no reason to ban the account, because this is not cheatin
 - AutoLogin
 - AutoReconnect
 
-## 📌  ScreenShot
+## 📌  ScreenShot Running With Javascript/NodeJs
 
-<img src="/Asset/Screenshot 2024-10-05 at 20.08.20.png" width=600>
+<img src="/Asset/Screenshot 2024-10-23 at 04.32.24.png" width=600>
 
 ## ✎ᝰ. NOTE 
 - I don't provide dependencies/requirements on each script, you have to install them yourself for the scripts to work.
