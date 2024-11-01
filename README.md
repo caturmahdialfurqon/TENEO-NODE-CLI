@@ -23,10 +23,11 @@ Get paid in $TENEO Tokens for simply running a node that accesses public social 
    - Click the extension puzzle icon next to the address bar and pin Teneo Community Node for quick access whenever you need to collect a lucrative lead!
 - Open the Extention on browser Section, Click SignUp Button
 - Create Account
-- Enter Code : Wrsrs
+- Enter Code : `Wrsrs`
 - Verify Email
 - Run Nodes Extension to Start earning rewards!
 - Get 10000 Bonuse SignUp,And 2500 TENEO Point (Will Converted as $TENEO After TGE) When Using My Referal Code.
+- Registration Bonus of 10000 Teneo Points, is no longer valid only for early users, I think for the first 10000 people. `FCFS`
 
 ## 🚨 Attention Before Running Teneo Cli Version
 
