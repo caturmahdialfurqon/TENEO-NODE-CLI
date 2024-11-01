@@ -8,7 +8,20 @@ Get paid in $TENEO Tokens for simply running a node that accesses public social 
 
 
 
-## 💡 How To SignUp (Register)
+## 💡 How To SetUp and SignUp (Register)
+### New way
+
+- First you have to do is install <br> Official Teneo Node From Chrome Webstore [Official Teneo Node](https://chromewebstore.google.com/detail/teneo-community-node/emcclcoaglgcpoognfiggmhnhgabppkm)
+- Pin it!
+- Click the extension puzzle icon next to the address bar and pin Teneo Community Node for quick access whenever you need to collect a lucrative lead!
+- Open the Extention on browser Section, Click SignUp Button
+- Create Account
+- Enter Code : `Wrsrs`
+- Verify Email
+- Run Nodes Extension to Start earning rewards!
+- Get 2500 TENEO Point (Will Converted as $TENEO After TGE) When Using My Referal Code.
+
+### Old way
 
 - Download the Extension
    - Teneo Community Node Extension -> [ teneo-community-node-v.0.2.zip ](https://teneo.pro/community-node#:~:text=Download%20extension%20as%20zip%20file%20teneo%2Dcommunity%2Dnode%2Dv.0.2.zip)
@@ -20,7 +33,7 @@ Get paid in $TENEO Tokens for simply running a node that accesses public social 
 - Load extension into Chrome
    - Locate the unzipped extension folder named teneo-community-node-v0.2 that contains manifest.json file. Drag and drop it anywhere onto the Extensions Chrome page to install.
 - Pin it!
-   - Click the extension puzzle icon next to the address bar and pin Teneo Community Node for quick access whenever you need to collect a lucrative lead!
+- Click the extension puzzle icon next to the address bar and pin Teneo Community Node for quick access whenever you need to collect a lucrative lead!
 - Open the Extention on browser Section, Click SignUp Button
 - Create Account
 - Enter Code : `Wrsrs`
