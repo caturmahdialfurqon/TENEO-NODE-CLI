@@ -9,9 +9,10 @@ Get paid in $TENEO Tokens for simply running a node that accesses public social 
 
 
 ## 💡 How To SetUp and SignUp (Register)
-### New way
 
-- First you have to do is install <br> Official Teneo Node From Chrome Webstore [Official Teneo Node](https://chromewebstore.google.com/detail/teneo-community-node/emcclcoaglgcpoognfiggmhnhgabppkm)
+- First you have to do is install <br>
+- Official Teneo Node From Chrome Webstore [Official Teneo Node](https://chromewebstore.google.com/detail/teneo-community-node/emcclcoaglgcpoognfiggmhnhgabppkm)
+- Or [v1.0.7-DEV-BUILD.zip](https://cdn.discordapp.com/attachments/1311614934697775124/1312072674410889298/v1.0.7-DEV-BUILD.zip?ex=674b2a66&is=6749d8e6&hm=58078c64eb0aaad286da86d6d6916a4315f84b1b9665c2b201dccc8bac6dc135&) Recomended! til release the new extention on Chrome Webstore version.
 - Pin it!
 - Click the extension puzzle icon next to the address bar and pin Teneo Community Node for quick access whenever you need to collect a lucrative lead!
 - Open the Extention on browser Section, Click SignUp Button
@@ -20,27 +21,6 @@ Get paid in $TENEO Tokens for simply running a node that accesses public social 
 - Verify Email
 - Run Nodes Extension to Start earning rewards!
 - Get 2500 TENEO Point (Will Converted as $TENEO After TGE) When Using My Referal Code.
-
-### Old way
-
-- Download the Extension
-   - Teneo Community Node Extension -> [ teneo-community-node-v.0.2.zip ](https://teneo.pro/community-node#:~:text=Download%20extension%20as%20zip%20file%20teneo%2Dcommunity%2Dnode%2Dv.0.2.zip)
-- Extract the Extension
-   - Right click on the downloaded zip file and choose Extract All option. Make sure to select a convenient file destination, somewhere it won't be moved from after the install.
-- Enable Developer Mode in Chrome or Other Browser Supported Extentions
-   - Open the Extensions page in your Chrome: in the top right corner of your browser, click More> More tools > Extensions, or just type in chrome://extensions/ into your address bar. <br>
-     Then, turn on     Developer mode switch in the top right corner.
-- Load extension into Chrome
-   - Locate the unzipped extension folder named teneo-community-node-v0.2 that contains manifest.json file. Drag and drop it anywhere onto the Extensions Chrome page to install.
-- Pin it!
-- Click the extension puzzle icon next to the address bar and pin Teneo Community Node for quick access whenever you need to collect a lucrative lead!
-- Open the Extention on browser Section, Click SignUp Button
-- Create Account
-- Enter Code : `Wrsrs`
-- Verify Email
-- Run Nodes Extension to Start earning rewards!
-- Get 10000 Bonuse SignUp,And 2500 TENEO Point (Will Converted as $TENEO After TGE) When Using My Referal Code.
-- Registration Bonus of 10000 Teneo Points, is no longer valid only for early users, I think for the first 10000 people. `FCFS`
 
 ## 🚨 Attention Before Running Teneo Cli Version
 
@@ -56,7 +36,8 @@ but `I think` there is no reason to ban the account, because this is not cheatin
 
 ## 📌  ScreenShot Running With Javascript/NodeJs
 
-<img src="/Asset/Screenshot 2024-10-23 at 04.32.24.png" width=600>
+<img src="https://github.com/user-attachments/assets/1f2be0ab-e1a1-420c-9407-ce5dd5f353e1" widht=580 height=480 >
+<img src="https://github.com/user-attachments/assets/3da7c733-daea-484e-9082-1e9d1a106d9e" widht=580 height=480 >
 
 ## ✎ᝰ. NOTE 
 - I don't provide dependencies/requirements on each script, you have to install them yourself for the scripts to work.
