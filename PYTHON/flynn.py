@@ -2,10 +2,11 @@ import json
 import asyncio
 import websockets
 import os
-import aiofiles
 import random
-import requests
-import sys
+import time
+import aiofiles
+
+cl = {'gr': '\x1b[32m', 'gb': '\x1b[4m', 'br': '\x1b[34m', 'st': '\x1b[9m', 'yl': '\x1b[33m', 'rt': '\x1b[0m'}
 
 socket = None
 ping_interval = None
@@ -14,12 +15,33 @@ potential_points = 0
 countdown = "Calculating..."
 points_total = 0
 points_today = 0
+reconnect_attempts = 0
+max_reconnect_attempts = 5
+max_reconnect_interval = 5 * 60  # 5 minutes in seconds
+CoderMarkPrinted = False
+
+def CoderMark():
+    global CoderMarkPrinted
+    if not CoderMarkPrinted:
+        print(f"""
+╭━━━╮╱╱╱╱╱╱╱╱╱╱╱╱╱╭━━━┳╮
+┃╭━━╯╱╱╱╱╱╱╱╱╱╱╱╱╱┃╭━━┫┃{cl['gr']}
+┃╰━━┳╮╭┳━┳━━┳━━┳━╮┃╰━━┫┃╭╮╱╭┳━╮╭━╮
+┃╭━━┫┃┃┃╭┫╭╮┃╭╮┃╭╮┫╭━━┫┃┃┃╱┃┃╭╮┫╭╮╮{cl['br']}
+┃┃╱╱┃╰╯┃┃┃╰╯┃╰╯┃┃┃┃┃╱╱┃╰┫╰━╯┃┃┃┃┃┃┃
+╰╯╱╱╰━━┻╯╰━╮┣━━┻╯╰┻╯╱╱╰━┻━╮╭┻╯╰┻╯╰╯{cl['rt']}
+╱╱╱╱╱╱╱╱╱╱╱┃┃╱╱╱╱╱╱╱╱╱╱╱╭━╯┃
+╱╱╱╱╱╱╱╱╱╱╱╰╯╱╱╱╱╱╱╱╱╱╱╱╰━━╯
+\n{cl['gb']}Teneo Node Cli {cl['gr']}v1.1.0 {cl['rt']}{cl['gb']}{cl['br']}dev_build{cl['rt']}
+        """)
+        CoderMarkPrinted = True
 
 async def read_file_async(file_path):
     try:
         async with aiofiles.open(file_path, 'r') as f:
-            return json.loads(await f.read())
-    except (FileNotFoundError, json.JSONDecodeError):
+            contents = await f.read()
+            return json.loads(contents)
+    except Exception:
         return {}
 
 async def write_file_async(file_path, data):
@@ -35,8 +57,11 @@ async def set_local_storage(data):
     await write_file_async('localStorage.json', new_data)
 
 async def get_user_id_from_file():
-    data = await read_file_async('UserId.json')
-    return data.get('userId')
+    try:
+        data = await read_file_async('UserId.json')
+        return data.get('userId')
+    except Exception:
+        return None
 
 async def set_user_id_to_file(user_id):
     await write_file_async('UserId.json', {'userId': user_id})
@@ -44,12 +69,23 @@ async def set_user_id_to_file(user_id):
 async def get_account_data():
     return await read_file_async('DataAccount.json')
 
-async def set_account_data(email, password):
-    account_data = {'email': email, 'password': password}
+async def set_account_data(email, password, access_token, refresh_token, personal_code):
+    account_data = {
+        'email': email,
+        'password': password,
+        'access_token': access_token,
+        'refresh_token': refresh_token,
+        'personalCode': personal_code
+    }
     await write_file_async('DataAccount.json', account_data)
 
+def get_reconnect_delay(attempt):
+    base_delay = 5  # 5 seconds
+    additional_delay = attempt * 5  # Additional 5 seconds for each attempt
+    return min(base_delay + additional_delay, max_reconnect_interval)
+
 async def connect_websocket(user_id):
-    global socket
+    global socket, reconnect_attempts
     if socket:
         return
     version = "v0.2"
@@ -58,18 +94,20 @@ async def connect_websocket(user_id):
     socket = await websockets.connect(ws_url)
 
     async def on_open():
-        connection_time = asyncio.get_event_loop().time()
+        nonlocal reconnect_attempts
+        reconnect_attempts = 0
+        connection_time = time.strftime("%Y-%m-%dT%H:%M:%S", time.gmtime())
         await set_local_storage({'lastUpdated': connection_time})
         print("WebSocket connected at", connection_time)
         start_pinging()
-        await start_countdown_and_points()
+        start_countdown_and_points()
 
     async def on_message():
         async for message in socket:
             data = json.loads(message)
             print("Received message from WebSocket:", data)
             if 'pointsTotal' in data and 'pointsToday' in data:
-                last_updated = asyncio.get_event_loop().time()
+                last_updated = time.strftime("%Y-%m-%dT%H:%M:%S", time.gmtime())
                 await set_local_storage({
                     'lastUpdated': last_updated,
                     'pointsTotal': data['pointsTotal'],
@@ -84,23 +122,18 @@ async def connect_websocket(user_id):
         socket = None
         print("WebSocket disconnected")
         stop_pinging()
-        await reconnect_websocket(user_id)
+        if reconnect_attempts < max_reconnect_attempts:
+            reconnect_attempts += 1
+            delay = get_reconnect_delay(reconnect_attempts)
+            await asyncio.sleep(delay)
+            await reconnect_websocket()
 
     async def on_error(error):
         print("WebSocket error:", error)
 
     await on_open()
-    try:
-        await on_message()
-    except Exception as e:
-        await on_error(e)
-    finally:
-        await on_close()
-
-async def reconnect_websocket(user_id):
-    print("Attempting to reconnect...")
-    await asyncio.sleep(5)  # Wait before reconnecting
-    await connect_websocket(user_id)
+    await on_message()
+    await on_close()
 
 def disconnect_websocket():
     global socket
@@ -112,7 +145,14 @@ def disconnect_websocket():
 def start_pinging():
     stop_pinging()
     global ping_interval
-    ping_interval = asyncio.get_event_loop().call_later(10, lambda: asyncio.create_task(ping()))
+    ping_interval = asyncio.get_event_loop().call_later(10, ping)
+
+async def ping():
+    global socket
+    if socket and socket.open:
+        await socket.send(json.dumps({'type': 'PING'}))
+        await set_local_storage({'lastPingDate': time.strftime("%Y-%m-%dT%H:%M:%S", time.gmtime())})
+    start_pinging()
 
 def stop_pinging():
     global ping_interval
@@ -120,28 +160,23 @@ def stop_pinging():
         ping_interval.cancel()
         ping_interval = None
 
-async def ping():
-    if socket and socket.open:
-        await socket.send(json.dumps({'type': 'PING'}))
-        await set_local_storage({'lastPingDate': asyncio.get_event_loop().time()})
-    start_pinging()
-
 async def update_countdown_and_points():
     global potential_points, countdown
     local_storage = await get_local_storage()
     last_updated = local_storage.get('lastUpdated')
     if last_updated:
-        next_heartbeat = last_updated + 15 * 60
-        now = asyncio.get_event_loop().time()
+        next_heartbeat = time.strptime(last_updated, "%Y-%m-%dT%H:%M:%S")
+        next_heartbeat = time.mktime(next_heartbeat) + 15 * 60  # 15 minutes
+        now = time.time()
         diff = next_heartbeat - now
 
         if diff > 0:
-            minutes = int(diff // 60)
-            seconds = int(diff % 60)
-            countdown = f"{minutes}m {seconds}s"
+            minutes = diff // 60
+            seconds = diff % 60
+            countdown = f"{int(minutes)}m {int(seconds)}s"
 
             max_points = 25
-            time_elapsed = now - last_updated
+            time_elapsed = now - time.mktime(time.strptime(last_updated, "%Y-%m-%dT%H:%M:%S"))
             time_elapsed_minutes = time_elapsed / 60
             new_points = min(max_points, (time_elapsed_minutes / 15) * max_points)
             new_points = round(new_points, 2)
@@ -161,57 +196,64 @@ async def update_countdown_and_points():
 
     await set_local_storage({'potentialPoints': potential_points, 'countdown': countdown})
 
-async def start_countdown_and_points():
-    global countdown_interval
-    if countdown_interval:
-        countdown_interval.cancel()
-    await update_countdown_and_points()
-    countdown_interval = asyncio.get_event_loop().call_later(1, lambda: asyncio.create_task(update_countdown_and_points()))
-
 async def get_user_id():
-    login_url = "https://ikknngrgxuxgjhplbpey.supabase.co/auth/v1/token?grant_type=password"
+    login_url = "https://node-community-api.teneo.pro/auth/v1/token?grant_type=password"
     authorization = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlra25uZ3JneHV4Z2pocGxicGV5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjU0MzgxNTAsImV4cCI6MjA0MTAxNDE1MH0.DRAvf8nH1ojnJBc3rD_Nw6t1AV8X_g6gmY_HByG2Mag"
     apikey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlra25uZ3JneHV4Z2pocGxicGV5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjU0MzgxNTAsImV4cCI6MjA0MTAxNDE1MH0.DRAvf8nH1ojnJBc3rD_Nw6t1AV8X_g6gmY_HByG2Mag"
 
     account_data = await get_account_data()
-    email = account_data.get('email') or input('Email: ')
-    password = account_data.get('password') or input('Password: ')
+    email = account_data.get('email') or input(f"\nEmail: {cl['gr']}")
+    password = account_data.get('password') or input(f"{cl['rt']}Password: {cl['st']}{cl['br']}")
 
     try:
-        response = requests.post(login_url, json={'email': email, 'password': password}, headers={
-            'Authorization': authorization,
-            'apikey': apikey
-        })
-        response.raise_for_status()
-        user_id = response.json()['user']['id']
-        print('User ID:', user_id)
+        async with aiohttp.ClientSession() as session:
+            async with session.post(login_url, json={'email': email, 'password': password}, headers={'Authorization': authorization, 'apikey': apikey}) as response:
+                response_data = await response.json()
+                access_token = response_data['access_token']
+                refresh_token = response_data['refresh_token']
+                print('Access_Token:', access_token)
+                print('Refresh_Token:', refresh_token)
 
-        profile_url = f"https://ikknngrgxuxgjhplbpey.supabase.co/rest/v1/profiles?select=personal_code&id=eq.{user_id}"
-        profile_response = requests.get(profile_url, headers={
-            'Authorization': authorization,
-            'apikey': apikey
-        })
-        print('Profile Data:', profile_response.json())
-        await set_user_id_to_file(user_id)
-        await set_account_data(email, password)
-        await start_countdown_and_points()
-        await connect_websocket(user_id)
-    except requests.RequestException as error:
+                auth_user_url = "https://node-community-api.teneo.pro/auth/v1/user"
+                async with session.get(auth_user_url, headers={'Authorization': f'Bearer {access_token}', 'apikey': apikey}) as auth_response:
+                    auth_response_data = await auth_response.json()
+                    user_id = auth_response_data['id']
+                    print('User ID:', user_id)
+
+                    profile_url = f"https://node-community-api.teneo.pro/rest/v1/profiles?select=personal_code&id=eq.{user_id}"
+                    async with session.get(profile_url, headers={'Authorization': f'Bearer {access_token}', 'apikey': apikey}) as profile_response:
+                        profile_response_data = await profile_response.json()
+                        personal_code = profile_response_data[0].get('personal_code')
+                        print(f"Personal Code: {cl['rt']}", personal_code)
+                        await set_user_id_to_file(user_id)
+                        await set_account_data(email, password, access_token, refresh_token, personal_code)
+                        await start_countdown_and_points()
+                        await connect_websocket(user_id)
+                        os.system('clear')
+                        print(cl['gr'] + "Data has been saved in the DataAccount.json file...\n" + cl['rt'])
+                        CoderMark()
+    except Exception as error:
         print('Error:', error)
     finally:
-        asyncio.get_event_loop().stop()
+        await asyncio.sleep(0)
+
+async def reconnect_websocket():
+    user_id = await get_user_id_from_file()
+    if user_id:
+        await connect_websocket(user_id)
 
 async def auto_login():
     account_data = await get_account_data()
     if account_data.get('email') and account_data.get('password'):
         await get_user_id()
+        print(cl['yl'] + "\nAutomatic Login has been Successfully Executed..\n" + cl['rt'])
 
 async def main():
     local_storage_data = await get_local_storage()
     user_id = await get_user_id_from_file()
 
     if not user_id:
-        option = input('User ID not found. Would you like to:\n1. Login to your account\n2. Enter User ID manually\nChoose an option: ')
+        option = input(f"\nUser ID not found. Would you like to:\n{cl['gr']}\n1. Login to your account\n2. Enter User ID manually\n{cl['rt']}\nChoose an option: ")
         if option == '1':
             await get_user_id()
         elif option == '2':
@@ -221,23 +263,25 @@ async def main():
             await connect_websocket(input_user_id)
         else:
             print('Invalid option. Exiting...')
-            sys.exit(0)
+            exit(0)
     else:
-        option = input('Menu:\n1. Logout\n2. Start Running Node\nChoose an option: ')
+        option = input(f"\nMenu:\n{cl['gr']}\n1. Logout\n2. Start Running Node\n{cl['rt']}\nChoose an option: ")
         if option == '1':
             os.remove('UserId.json')
             os.remove('localStorage.json')
             os.remove('DataAccount.json')
-            print('Logged out successfully.')
-            sys.exit(0)
+            print(cl['yl'] + "\nLogged out successfully.")
+            exit(0)
         elif option == '2':
+            os.system('clear')
+            CoderMark()
+            print(cl['gr'] + "Initiates a connection to the node...\n" + cl['rt'])
             await start_countdown_and_points()
             await connect_websocket(user_id)
         else:
-            print('Invalid option. Exiting...')
-            sys.exit(0)
+            print(cl['yl'] + "Invalid option. Exiting...")
+            exit(0)
 
-if __name__ == "__main__":
-    asyncio.run(main())
-    asyncio.get_event_loop().call_later(3600, auto_login)
+asyncio.run(main())
+asyncio.get_event_loop().call_later(1800, auto_login)
 
